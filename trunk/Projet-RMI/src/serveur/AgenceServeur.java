@@ -21,19 +21,13 @@ public class AgenceServeur
 
 		try 
 		{
-			Scanner sc = new Scanner(System.in);
-			String nomBanque;
-			
 			System.out.println("Construction du serveur d'agence...");
 			
-			System.out.print("Veuillez saisir le nom de la banque de l'agence: ");
-			nomBanque = sc.nextLine();
-			
-			AgenceImpl agence = new AgenceImpl(new Adresse("Rond-point de la Lyre 202\nAvenue des Moulins", "Montpellier", "0 892 892 000"), new BanqueImpl(nomBanque));
+			AgenceImpl agence = new AgenceImpl();
 			
 			System.out.println("Liaison du serveur de banque avec les registres...");
 			Naming.rebind("Agence", agence);
-			System.out.println("Serveur de banque lancé...");
+			System.out.println("Serveur de banque lance...");
 		} 
 		catch (Exception e) { System.err.println("server error: "+e); }
 	}

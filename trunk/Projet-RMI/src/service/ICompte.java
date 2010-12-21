@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
  * Cette interface permet de définir le comportement général que doit avoir un Compte.
  *
  */
-public interface Compte extends Remote
+public interface ICompte extends Remote
 {
 	/**
 	 * Cette méthode permet de crédit le compte courant du montant fourni en paramètre.
@@ -24,12 +24,4 @@ public interface Compte extends Remote
 	 * @throws RemoteException
 	 */
 	public void debit(int montant) throws RemoteException;
-	
-	/**
-	 * Cette méthode permet de retourner le numéro de compte.
-	 *  
-	 * @return le numéro de compte
-	 * @throws RemoteException
-	 */
-	public int getNumero() throws RemoteException;
 }
