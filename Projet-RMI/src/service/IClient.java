@@ -4,11 +4,13 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import classe.Client;
+
 /**
  * Cette interface permet de définir le comportement général que doit avoir un Client.
  *
  */
-public interface Client extends Remote
+public interface IClient extends Remote
 {
 	/**
 	 * Cette méthode permet de créer un nouveau compte pour le client.
@@ -34,7 +36,7 @@ public interface Client extends Remote
 	 * @return la liste des comptes ou livrets que possède le client
 	 * @throws RemoteException
 	 */
-	public ArrayList<Compte> listeComptes() throws RemoteException;
+	public ArrayList<ICompte> listeComptes() throws RemoteException;
 
 	/**
 	 * Cette méthode permet d'effectuer un virement du compte (<i>numCompte1</i>) au compte (<i>numCompte2</i>) d'un même client d'une valeur de <i>montant</i>.
@@ -42,24 +44,40 @@ public interface Client extends Remote
 	 * @param numCompte1 numéro du compte à débiter
 	 * @param numCompte2 numéro du compte à créditer
 	 * @param montant valeur du virement
-	 * @return vrai si le virement c'est bien effectuer, sinon faux
 	 * @throws RemoteException
 	 */
-	public boolean virement(int numCompte1, int numCompte2, int montant) throws RemoteException;
+	public void virement(int numCompte1, int numCompte2, int montant) throws RemoteException;
 	
 	/**
-	 * Cette méthode permet de retourner le numéro du client.
-	 * 
-	 * @return le numéro du client
+	 * Cette méthode permet de créer un nouveau client d'une l'agence.
+	 *  
+	 * @param client client que l'on veut créer
 	 * @throws RemoteException
 	 */
-	public int getNumero() throws RemoteException;
+	public void creerClient(Client client) throws RemoteException;
 	
 	/**
-	 * Cette méthode permet de le nom du client.
+	 * Cette méthode permet de supprimer un client d'une agence.
 	 * 
-	 * @return le nom du client
+	 * @param numero numéro du client que l'on veut détruire
 	 * @throws RemoteException
 	 */
-	public String getNom() throws RemoteException;
+	public void detruireClient(int numero) throws RemoteException;
+	
+	/**
+	 * Cette méthode permet de chercher dans l'agence un client grâce à son nom.
+	 *  
+	 * @param nom nom du client que l'on veut trouver
+	 * @return le client si il existe, sinon null
+	 * @throws RemoteException
+	 */
+	public Client rechercheClient(String nom) throws RemoteException;
+	
+	/**
+	 * Cette méthode permet d'obtenir la liste des clients d'une agence.
+	 *  
+	 * @return tous les clients d'une agence
+	 * @throws RemoteException
+	 */
+	public ArrayList<Client> listeClients() throws RemoteException;
 }

@@ -1,10 +1,12 @@
 package main;
 
+import java.io.Serializable;
+
 /**
  * Cette class permet de définir une adresse.
  *
  */
-public class Adresse 
+public class Adresse implements Serializable
 {
 //======================================================================//
 //============================ Variables ===============================//

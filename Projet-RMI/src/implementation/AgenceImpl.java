@@ -1,50 +1,45 @@
 package implementation;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import main.Adresse;
-import service.Agence;
-import service.Banque;
-import service.Client;
+import service.IAgence;
+import service.IClient;
+import classe.Agence;
+import classe.Client;
 
 /**
  * Cette classe implemente le comportement général que doit avoir une agence.
  *
  */
-public class AgenceImpl extends UnicastRemoteObject implements Agence
+public class AgenceImpl extends UnicastRemoteObject implements IAgence
 {
 //======================================================================//
 //============================ Variables ===============================//
 //======================================================================//
 	
-	private static int compteurNumero = 0; // compteur permettant de gérer les numéros d'agence
-	private int numero;// numéro de l'agence
-	private Adresse adresse; // adresse de l'agence
-	private Banque banque; // banque à laquelle elle appartient
-	private ArrayList<Client> clients; // liste des clients de l'agence
-	
+	private HashMap<String, Agence> agences; // liste des agences
+
 	
 //======================================================================//
 //========================== Constructeurs =============================//
-//======================================================================//
-
+//======================================================================//	
+	
 	/**
 	 * Crée une nouvelle instance de <i>AgenceImpl</i>.
 	 *
-	 * @param adresse adresse de la nouvelle agence
-	 * @param banque banque a laquelle l'agence est affectée
 	 * @throws RemoteException
 	 */
-	public AgenceImpl(Adresse adresse, Banque banque) throws RemoteException
+	public AgenceImpl() throws RemoteException
 	{
 		super();
-		this.numero = this.compteurNumero;
-		this.adresse = new Adresse(adresse);
-		this.banque = banque;
-		this.clients = new ArrayList<Client>();
-		this.compteurNumero++;
+		this.agences = new HashMap<String, Agence>();
 	}
 
 	
@@ -53,87 +48,91 @@ public class AgenceImpl extends UnicastRemoteObject implements Agence
 //======================================================================//
 	
 	@Override
-	public int creerClient(String nom, String sexe, Adresse adresse) throws RemoteException
+	public int creerClient(String nom, String sexe, Adresse adresse, Agence agence) throws RemoteException 
 	{
-		Client client = new ClientImpl(nom, sexe, adresse, this);
-		this.clients.add(client);
-		System.out.println("Un nouveau client n°"+client.getNumero()+" vient d'etre cree."); //TODO sysout
+		Client client = new Client(nom, sexe, adresse, agence);
+		
+		try 
+		{
+			IClient serveurClient;
+			serveurClient = (IClient) Naming.lookup(agence.getAdresseServeurClient());
+			serveurClient.creerClient(client);
+		} 
+		catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur d'agence lors de l'ajout d'une agence."); }
+		catch (NotBoundException e) { System.err.println("Impossible de créer un lien avec le serveur d'agence"); }
 		
 		return client.getNumero();
 	}
-	
-	@Override
-	public boolean detruireClient(int numero) throws RemoteException
-	{
-		Client client = this.rechercheClient(numero);
-		
-		if(this.clients.remove(client))
-		{
-			System.out.println("Le client n°"+client.getNumero()+" vient d'etre supprimee."); //TODO sysout
-			
-			return true;
-		}
-		else
-			return false;
-	}
-	
-	@Override
-	public Client rechercheClient(String nom) throws RemoteException
-	{
-		boolean trouver = false;
-		int i = 0;
-		
-		while(i < this.clients.size() && !trouver)
-		{
-			if(this.clients.get(i).getNom() == nom)
-				trouver = true;
 
-			i++;
-		}
-		
-		return (trouver)? this.clients.get(i - 1) : null;
-	}
-	
 	@Override
-	public ArrayList<Client> listeClients() throws RemoteException
+	public void detruireClient(int numero, Agence agence) throws RemoteException 
 	{
-		return this.clients;
-	}
-	
-	@Override
-	public String description() throws RemoteException
-	{
-		String description = "Numero: "+this.numero+"\n";
-		description += this.adresse+"\n";
-		
-		return description;
-	}
-	
-	
-//======================================================================//
-//============================= Méthodes ===============================//
-//======================================================================//
-	
-	/**
-	 * Permet de retrouver un client par son numero.
-	 * 
-	 * @param numero numero du client à retrouver
-	 * @return le client rechercher si il est trouver, sinon null
-	 * @throws RemoteException 
-	 */
-	private Client rechercheClient(int numero) throws RemoteException
-	{
-		boolean trouver = false;
-		int i = 0;
-		
-		while(i < this.clients.size() && !trouver)
+		try 
 		{
-			if(this.clients.get(i).getNumero() == numero)
-				trouver = true;
-				
-			i++;
-		}
+			IClient serveurClient;
+			serveurClient = (IClient) Naming.lookup(agence.getAdresseServeurClient());
+			serveurClient.detruireClient(numero);
+		} 
+		catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur d'agence lors de l'ajout d'une agence."); }
+		catch (NotBoundException e) { System.err.println("Impossible de créer un lien avec le serveur d'agence"); }
+	}
+
+	@Override
+	public Client rechercheClient(String nom, Agence agence) throws RemoteException 
+	{
+		Client client = null;
+		try 
+		{
+			IClient serveurClient;
+			serveurClient = (IClient) Naming.lookup(agence.getAdresseServeurClient());
+			client = serveurClient.rechercheClient(nom);
+		} 
+		catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur d'agence lors de l'ajout d'une agence."); }
+		catch (NotBoundException e) { System.err.println("Impossible de créer un lien avec le serveur d'agence"); }
 		
-		return (trouver)? this.clients.get(i - 1) : null;
+		return client;
+	}
+
+	@Override
+	public ArrayList<Client> listeClients(Agence agence) throws RemoteException 
+	{
+		ArrayList<Client> clients = null;
+		
+		try 
+		{
+			IClient serveurClient;
+			serveurClient = (IClient) Naming.lookup(agence.getAdresseServeurClient());
+			clients = serveurClient.listeClients();
+		} 
+		catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur d'agence lors de l'ajout d'une agence."); }
+		catch (NotBoundException e) { System.err.println("Impossible de créer un lien avec le serveur d'agence"); }
+		
+		return clients;
+	}
+
+	@Override
+	public void insererAgence(String nomVille, Agence agence) throws RemoteException 
+	{
+		this.agences.put(nomVille, agence);
+		System.out.println("Creation de l'agence: \n"+agence);
+	}
+
+	@Override
+	public void retirerAgence(String nomVille) throws RemoteException 
+	{
+		Agence agence = this.agences.remove(nomVille);
+		System.out.println("Suppression de l'agence: \n"+agence);
+	}
+
+	@Override
+	public Agence rechercherAgence(String nomVille) throws RemoteException 
+	{
+		return this.agences.get(nomVille);
+	}
+
+	@Override
+	public HashMap<String, Agence> listeAgences() throws RemoteException 
+	{
+		return this.agences;
 	}
 }

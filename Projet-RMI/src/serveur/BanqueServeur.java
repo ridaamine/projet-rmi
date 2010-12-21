@@ -4,7 +4,10 @@ import implementation.BanqueImpl;
 
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
-import java.util.Scanner;
+
+import main.Adresse;
+import classe.Agence;
+import classe.Banque;
 
 public class BanqueServeur 
 {
@@ -17,18 +20,16 @@ public class BanqueServeur
 
 		try 
 		{
-			Scanner sc = new Scanner(System.in);
-			String nomBanque;
+			Banque creditAgricole = new Banque("Credit Agricole");
 			
 			System.out.println("Construction du serveur de banque...");
-			
-			System.out.print("Veuillez saisir le nom de la banque que vous voulez creer: ");
-			nomBanque = sc.nextLine();
-
-			BanqueImpl banque = new BanqueImpl(nomBanque);
+			BanqueImpl banque = new BanqueImpl(creditAgricole);
 			System.out.println("Liaison du serveur de banque avec les registres...");
 			Naming.rebind("Banque", banque);
 			System.out.println("Serveur de banque lance...");
+			
+			banque.insererAgence("Aubenas", new Agence(new Adresse("Rue test", "Aubenas", "0412345678"), creditAgricole));
+			
 		} 
 		catch (Exception e) { System.err.println("server error: "+e); }
 	}
