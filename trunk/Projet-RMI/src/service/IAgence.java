@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import main.Adresse;
 import classe.Agence;
+import classe.Banque;
 import classe.Client;
 
 /**
@@ -83,4 +84,12 @@ public interface IAgence extends Remote
 	 * @throws RemoteException
 	 */
 	public HashMap<String, Agence> listeAgences() throws RemoteException;
+	
+	/**
+	 * Cette méthode permet de retourner toutes les agences d'une banque du serveur.
+	 * 
+	 * @return les agences d'une banque du serveur
+	 * @throws RemoteException
+	 */
+	public HashMap<String, Agence> listeAgences(Banque banque) throws RemoteException;
 }

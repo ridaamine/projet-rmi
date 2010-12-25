@@ -2,7 +2,10 @@ package service;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.swing.ListModel;
 
 import classe.Agence;
 import classe.Banque;
@@ -44,14 +47,23 @@ public interface IBanque extends Remote
 	public Agence rechercherAgence(String nomVille, Banque banque) throws RemoteException;
 
 	/**
-	 * Cette méthode permet de retourner la liste des agences de la banque par ville. 
+	 * Cette méthode permet de retourner la liste des agences d'une banque. 
 	 * La ville de chaque agence doit être également retournée.
 	 * 
-	 * @param banque banque qu'on veut voir toutes ses agences
-	 * @return la liste des agences de la banque par ville. La ville de chaque agence doit être également retournée.
+	 * @param banque banque dont on veut voir toutes les agences
+	 * @return la liste des agences de la banque par ville.
 	 * @throws RemoteException
 	 */
 	public HashMap<String, Agence> listeAgences(Banque banque) throws RemoteException;
+	
+	/**
+	 * Cette méthode permet de retourner la liste des agences par ville. 
+	 * La ville de chaque agence doit être également retournée.
+	 * 
+	 * @return la liste des agences par ville.
+	 * @throws RemoteException
+	 */
+	public HashMap<String, Agence> listeAgences() throws RemoteException;
 	
 	/**
 	 * Cette méthode permet de créer une nouvelle banque sur le serveur de banque.
@@ -69,4 +81,27 @@ public interface IBanque extends Remote
 	 * @throws RemoteException
 	 */
 	public void creerBanque(String nom, String adresseServeurAgence) throws RemoteException;
+
+	
+	/**
+	 * Cette méthode permet de retourner la liste des banques du serveur 
+	 * 
+	 * @return la liste des banques.
+	 * @throws RemoteException
+	 */
+	public ArrayList<Banque> listeBanques() throws RemoteException;
+
+	/**
+	 * Cette méthode permet de supprimer une banque en fonction de son nom
+	 * @param nom le nom de la banque
+	 */
+	public void supprimerBanque(String nom)throws RemoteException;
+
+	
+	/**
+	 * Cette méthode permet de rechercher une banque par son nom
+	 * @param nom le nom de la banque
+	 * @throws RemoteException
+	 */
+	public Banque rechercherBanque(String nom)throws RemoteException;
 }

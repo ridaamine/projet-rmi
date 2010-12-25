@@ -25,11 +25,14 @@ public class AgenceServeur
 			
 			AgenceImpl agence = new AgenceImpl();
 			
-			System.out.println("Liaison du serveur de banque avec les registres...");
+			System.out.println("Liaison du serveur d'agence avec les registres...");
 			Naming.rebind("Agence", agence);
-			System.out.println("Serveur de banque lance...");
+			System.out.println("Serveur d'agence lance...");
+			
+//			agence.creerClient("Toto", "masculin", new Adresse("35 rue des lilas","Perpignan","0468508384"), agence.rechercherAgence("perpignan"));
+			
 		} 
-		catch (Exception e) { System.err.println("server error: "+e); }
+		catch (Exception e) { System.err.println("server error t boooo: "+e); }
 	}
 
 }

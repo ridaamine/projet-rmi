@@ -7,11 +7,14 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import main.Adresse;
 import service.IAgence;
 import service.IClient;
 import classe.Agence;
+import classe.Banque;
 import classe.Client;
 
 /**
@@ -40,6 +43,9 @@ public class AgenceImpl extends UnicastRemoteObject implements IAgence
 	{
 		super();
 		this.agences = new HashMap<String, Agence>();
+		
+//		this.agences.put("Aubenas", new Agence(new Adresse("Rue test", "Aubenas", "0412345678"), new Banque("Credit Agricole")));
+//		this.agences.put("perpignan",new Agence(new Adresse("35 rue tressere","perpignan","0468508384"),new Banque("Banque Courtois"),"//127.0.0.1/Client"));
 	}
 
 	
@@ -58,8 +64,8 @@ public class AgenceImpl extends UnicastRemoteObject implements IAgence
 			serveurClient = (IClient) Naming.lookup(agence.getAdresseServeurClient());
 			serveurClient.creerClient(client);
 		} 
-		catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur d'agence lors de l'ajout d'une agence."); }
-		catch (NotBoundException e) { System.err.println("Impossible de créer un lien avec le serveur d'agence"); }
+		catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur de compte lors de l'ajout d'une agence."); }
+		catch (NotBoundException e) { System.err.println("Impossible de créer un lien avec le serveur de compte"); }
 		
 		return client.getNumero();
 	}
@@ -85,7 +91,7 @@ public class AgenceImpl extends UnicastRemoteObject implements IAgence
 		{
 			IClient serveurClient;
 			serveurClient = (IClient) Naming.lookup(agence.getAdresseServeurClient());
-			client = serveurClient.rechercheClient(nom);
+			client = serveurClient.rechercheClient(nom, agence);
 		} 
 		catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur d'agence lors de l'ajout d'une agence."); }
 		catch (NotBoundException e) { System.err.println("Impossible de créer un lien avec le serveur d'agence"); }
@@ -102,7 +108,7 @@ public class AgenceImpl extends UnicastRemoteObject implements IAgence
 		{
 			IClient serveurClient;
 			serveurClient = (IClient) Naming.lookup(agence.getAdresseServeurClient());
-			clients = serveurClient.listeClients();
+			clients = serveurClient.listeClients(agence);
 		} 
 		catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur d'agence lors de l'ajout d'une agence."); }
 		catch (NotBoundException e) { System.err.println("Impossible de créer un lien avec le serveur d'agence"); }
@@ -120,8 +126,10 @@ public class AgenceImpl extends UnicastRemoteObject implements IAgence
 	@Override
 	public void retirerAgence(String nomVille) throws RemoteException 
 	{
-		Agence agence = this.agences.remove(nomVille);
+		Agence agence = this.agences.get(nomVille);
 		System.out.println("Suppression de l'agence: \n"+agence);
+		this.agences.remove(nomVille);
+
 	}
 
 	@Override
@@ -134,5 +142,24 @@ public class AgenceImpl extends UnicastRemoteObject implements IAgence
 	public HashMap<String, Agence> listeAgences() throws RemoteException 
 	{
 		return this.agences;
+	}
+	
+	@Override
+	public HashMap<String, Agence> listeAgences(Banque banque) throws RemoteException 
+	{
+		HashMap<String, Agence> listeAgences = new HashMap<String, Agence>();
+		Set cles = agences.keySet();
+		Iterator it = cles.iterator();
+		while (it.hasNext())
+		{
+		   Object cle = it.next(); 
+		   Agence agence = agences.get(cle); 
+		   if(agence.getBanque().getNom().equals(banque.getNom()))
+		   {
+			   listeAgences.put(agence.getAdresse().getVille(), agence);
+		   }
+		}
+		 
+		return listeAgences;
 	}
 }

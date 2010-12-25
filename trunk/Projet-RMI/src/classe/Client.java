@@ -20,6 +20,9 @@ public class Client implements Serializable //TODO A compléter...
 	private String sexe; // sexe du client
 	private Adresse adresse; // adresse du client
 	private Agence agence; // l'agence gérant les comptes du client
+	private String adresseServeurCompte;
+	private String adresseServeurLivret;
+
 	
 	
 //======================================================================//
@@ -42,6 +45,10 @@ public class Client implements Serializable //TODO A compléter...
 		this.adresse = adresse;
 		this.agence = agence;
 		
+		this.adresseServeurCompte = "//127.0.0.1/Compte";
+		this.adresseServeurLivret = "//127.0.0.1/Livret";
+
+		
 		Client.compteurNumero++;
 	}
 
@@ -49,6 +56,26 @@ public class Client implements Serializable //TODO A compléter...
 //======================================================================//
 //============================= Méthodes ===============================//
 //======================================================================//
+	
+	public String toString()
+	{
+		String desc ="";
+		/*desc +="\n Numero de client : "+numero;
+		desc +="\n Nom : "+nom;
+		desc +="\n Sexe : "+sexe;
+		desc+="\n Adresse : "+adresse;
+		desc+="\n Agence : "+agence.getBanque().getNom()+" "+agence.getAdresse().getVille();*/
+		desc +="Client : "+numero+" Nom : "+nom;
+		return desc;
+	}
+	
+	public boolean equals(Client client)
+	{
+		if(this.numero == client.numero && this.nom.equals(client.nom))
+			return true;
+		else
+			return false;
+	}
 	
 	public int getNumero()
 	{
@@ -93,5 +120,17 @@ public class Client implements Serializable //TODO A compléter...
 	public void setAgence(Agence agence)
 	{
 		this.agence = agence;
+	}
+
+
+	public String getAdresseServeurCompte() 
+	{
+		return this.adresseServeurCompte;
+	}
+
+
+	public String getAdresseServeurLivret() 
+	{
+		return this.adresseServeurLivret;
 	}
 }

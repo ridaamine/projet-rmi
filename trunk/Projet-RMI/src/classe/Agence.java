@@ -36,6 +36,7 @@ public class Agence implements Serializable
 		this.numero = Agence.compteurNumero;
 		this.adresse = adresse;
 		this.banque = banque;
+		this.adresseServeurClient = "//127.0.0.1/Client";
 		
 		Agence.compteurNumero++;
 	}
@@ -65,11 +66,21 @@ public class Agence implements Serializable
 	@Override
 	public String toString()
 	{
-		String description = "Numero: "+this.numero+"\n";
+		/*String description = "Numero: "+this.numero+"\n";
 		description += this.adresse+"\n";
-		description += this.banque+"\n";
+		description += this.banque+"\n";*/
+		
+		String description =" Agence "+banque.getNom()+" "+adresse.getVille();
 		
 		return description;
+	}
+	
+	public boolean equals(Agence agence)
+	{
+		if (this.numero == ((Agence)agence).getNumero())
+			return true;
+		else 
+			return false;
 	}
 	
 	public int getNumero() 

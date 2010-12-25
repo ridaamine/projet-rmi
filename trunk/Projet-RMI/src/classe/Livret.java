@@ -2,17 +2,29 @@ package classe;
 
 import java.io.Serializable;
 
-public class Livret implements Serializable
+public class Livret extends Compte implements Serializable 
 {
 //======================================================================//
 //============================ Variables ===============================//
 //======================================================================//
 
-	private static int compteurNumero = 0; // compteur permettant de gérer les numéros de compte
-	private int numero; // numéro du compte
-	private int montant; // somme d'argent qu'il y a sur le compte 
-	private Client proprietaire; // client propriétaire du compte
-	private Agence agence; // agence où le compte a été créé
+	private double taux; //taux d'interet du livret
 
-	//TODO A compléter...
+	public Livret(int montant, double taux, Client proprietaire)
+	{
+		super(montant,proprietaire);
+		this.taux= taux;
+
+	}
+	
+	public String toString()
+	{
+		String desc ="";
+		/*desc +="\n Numero de compte : "+numero;
+		desc +="\n Montant : "+montant;
+		desc +="\n Proprietaire: "+proprietaire;*/
+		desc+="Livret numero : "+this.getNumero()+" Taux : "+taux;
+		return desc;
+	}
+	
 }
