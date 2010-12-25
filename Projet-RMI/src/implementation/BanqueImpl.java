@@ -36,11 +36,12 @@ public class BanqueImpl extends UnicastRemoteObject implements IBanque
 	 * @param banque banque qui sera créée lors de la création du serveur
 	 * @throws RemoteException
 	 */
-	public BanqueImpl(Banque banque) throws RemoteException
+	public BanqueImpl() throws RemoteException
 	{
 		super();
 		this.banques = new ArrayList<Banque>();
-		this.banques.add(banque);
+//		this.banques.add(banque);
+//		this.banques.add(new Banque ("Banque Courtois"));
 	}
 	
 
@@ -93,11 +94,13 @@ public class BanqueImpl extends UnicastRemoteObject implements IBanque
 	public HashMap<String, Agence> listeAgences(Banque banque) throws RemoteException
 	{
 		HashMap<String, Agence> agences = null;
-		
 		try 
 		{
-			IAgence serveurAgence = (IAgence) Naming.lookup(banque.getAdresseServeurAgence());
-			agences = serveurAgence.listeAgences();
+			if(banque != null)
+			{
+				IAgence serveurAgence = (IAgence) Naming.lookup(banque.getAdresseServeurAgence());
+				agences = serveurAgence.listeAgences(banque);
+			}
 		} 
 		catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur d'agence lors de l'ajout d'une agence."); }
 		catch (NotBoundException e) { System.err.println("Impossible de créer un lien avec le serveur d'agence"); }
@@ -109,11 +112,76 @@ public class BanqueImpl extends UnicastRemoteObject implements IBanque
 	public void creerBanque(String nom) throws RemoteException
 	{
 		this.banques.add(new Banque(nom));
+		System.out.println("Creation banque : "+nom);
 	}
 	
 	@Override
 	public void creerBanque(String nom, String adresseServeurAgence) throws RemoteException
 	{
 		this.banques.add(new Banque(nom, adresseServeurAgence));
+		System.out.println("Creation banque : "+nom);
+	}
+
+
+	@Override
+	public ArrayList<Banque> listeBanques() throws RemoteException
+	{
+
+		return this.banques;
+	}
+
+
+	@Override
+	public HashMap<String, Agence> listeAgences() throws RemoteException 
+	{
+		HashMap<String, Agence> agences = null;
+		try 
+		{
+				IAgence serveurAgence = (IAgence) Naming.lookup("Agence");
+				agences = serveurAgence.listeAgences();
+		} 
+		catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur d'agence lors de l'ajout d'une agence."); }
+		catch (NotBoundException e) { System.err.println("Impossible de créer un lien avec le serveur d'agence"); }
+		
+		return agences;
+	}
+
+
+	@Override
+	public Banque rechercherBanque(String nom) throws RemoteException 
+	{
+		boolean trouve = false;
+		int i =0;
+		Banque banque = null;
+		while(!trouve && i < this.banques.size())
+		{
+			if(this.banques.get(i).getNom().equals(nom))
+			{
+				trouve = true;
+				banque = this.banques.get(i);
+			}
+			i++;
+		}
+		return banque;
+	}
+
+
+	@Override
+	public void supprimerBanque(String nom) throws RemoteException 
+	{
+		boolean trouve = false;
+		int i =0;
+		while(!trouve && i < this.banques.size())
+		{
+			if(this.banques.get(i).getNom().equals(nom))
+			{
+				trouve = true;
+				this.banques.remove(i);
+				System.out.println("Banque : "+ nom+" supprimé");
+			}
+			i++;
+		}
+		if(!trouve)
+			System.err.println("Banque : "+nom+" n'existe pas : impossible a supprimer");
 	}
 }

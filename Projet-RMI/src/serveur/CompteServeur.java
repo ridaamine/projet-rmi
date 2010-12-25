@@ -1,6 +1,9 @@
 package serveur;
 
+import implementation.AgenceImpl;
 import implementation.BanqueImpl;
+import implementation.ClientImpl;
+import implementation.CompteImpl;
 
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
@@ -9,7 +12,7 @@ import main.Adresse;
 import classe.Agence;
 import classe.Banque;
 
-public class BanqueServeur 
+public class CompteServeur 
 {
 	public static void main(String args[]) 
 	{
@@ -20,15 +23,13 @@ public class BanqueServeur
 
 		try 
 		{
-//			Banque creditAgricole = new Banque("Credit Agricole");
+			System.out.println("Construction du serveur de compte...");
 			
-			System.out.println("Construction du serveur de banque...");
-			BanqueImpl banque = new BanqueImpl();
-			System.out.println("Liaison du serveur de banque avec les registres...");
-			Naming.rebind("Banque", banque);
-			System.out.println("Serveur de banque lance...");
+			CompteImpl compte = new CompteImpl();
 			
-			
+			System.out.println("Liaison du serveur de compte avec les registres...");
+			Naming.rebind("//127.0.0.1/Compte", compte);
+			System.out.println("Serveur de compte lance...");
 			
 		} 
 		catch (Exception e) { System.err.println("server error: "+e); }
