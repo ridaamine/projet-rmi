@@ -1,17 +1,15 @@
 package client;
 
-import java.rmi.Naming;
+import ihm.Fenetre;
+import ihm.PanelAdministrateurBanque;
+import ihm.PanelBanque;
 
-import service.IBanque;
 
 public class BanqueClient 
 {
 	public static void main(String args[]) 
 	{        
-        try 
-        {
-            IBanque iBanque = (IBanque) Naming.lookup("Banque");
-        } 
-        catch (Exception e) { e.printStackTrace(); }
+		Fenetre fen3 = new Fenetre(new PanelBanque(),"Banque");
+		Fenetre fen4 = new Fenetre(new PanelAdministrateurBanque(),"Banque Administrator");
     }
 }
