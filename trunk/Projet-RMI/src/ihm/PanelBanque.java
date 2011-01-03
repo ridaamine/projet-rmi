@@ -30,6 +30,10 @@ import classe.Agence;
 import classe.Banque;
 import classe.Client;
 
+/**
+ * Cette classe permet de representé l'interface graphique d'une banque
+ *
+ */
 public class PanelBanque extends JPanel
 {
 	private JTextField rueText = new JTextField();

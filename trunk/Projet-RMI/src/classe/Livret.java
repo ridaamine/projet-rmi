@@ -2,6 +2,10 @@ package classe;
 
 import java.io.Serializable;
 
+/**
+ * Cette classe permet de definir un Livret
+ *
+ */
 public class Livret extends Compte implements Serializable 
 {
 //======================================================================//

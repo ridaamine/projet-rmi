@@ -12,19 +12,19 @@ rmic -keep implementation.ClientImpl
 rmic -keep implementation.CompteImpl
 
 
-gnome-terminal -e "java -Djava.security.policy=/Users/benjamintardieu/Documents/workspace/Projet-RMI/java.policy serveur.BanqueServeur"
+gnome-terminal -e "java -Djava.security.policy=/Users/choucomog/Documents/workspace/Projet-RMI/java.policy serveur.BanqueServeur"
 
 sleep 1
 
-gnome-terminal -e "java -Djava.security.policy=/Users/benjamintardieu/Documents/workspace/Projet-RMI/java.policy serveur.CompteServeur"
+gnome-terminal -e "java -Djava.security.policy=/Users/choucomog/Documents/workspace/Projet-RMI/java.policy serveur.CompteServeur"
 
 sleep 1
 
-gnome-terminal -e "java -Djava.security.policy=/Users/benjamintardieu/Documents/workspace/Projet-RMI/java.policy serveur.ClientServeur"
+gnome-terminal -e "java -Djava.security.policy=/Users/choucomog/Documents/workspace/Projet-RMI/java.policy serveur.ClientServeur"
 
 sleep 1
 
-gnome-terminal -e "java -Djava.security.policy=/Users/benjamintardieu/Documents/workspace/Projet-RMI/java.policy serveur.AgenceServeur"
+gnome-terminal -e "java -Djava.security.policy=/Users/choucomog/Documents/workspace/Projet-RMI/java.policy serveur.AgenceServeur"
 
 
 

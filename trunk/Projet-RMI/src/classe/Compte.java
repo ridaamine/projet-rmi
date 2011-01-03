@@ -2,6 +2,10 @@ package classe;
 
 import java.io.Serializable;
 
+/**
+ * Cette classe permet de définir un compte
+ *
+ */
 public class Compte implements Serializable
 {
 //======================================================================//
