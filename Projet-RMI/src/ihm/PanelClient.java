@@ -23,6 +23,10 @@ import classe.Banque;
 import classe.Client;
 import classe.Compte;
 
+/**
+ * Cette classe permet de representé l'interface graphique d'un client
+ *
+ */
 public class PanelClient extends JPanel
 {
 	private JList listeBanque = null;

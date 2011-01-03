@@ -15,6 +15,10 @@ import javax.swing.JTextField;
 
 import service.IBanque;
 
+/**
+ * Cette classe permet de representé l'interface graphique d'un administrateur de banque
+ *
+ */
 public class PanelAdministrateurBanque extends JPanel
 {
 	private JTextField nomText = new JTextField();

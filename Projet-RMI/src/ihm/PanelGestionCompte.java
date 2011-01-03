@@ -30,6 +30,10 @@ import classe.Banque;
 import classe.Client;
 import classe.Compte;
 
+/**
+ * Cette classe permet de representé l'interface graphique du gestionnaire de compte
+ *
+ */
 public class PanelGestionCompte extends JPanel
 {
 	
