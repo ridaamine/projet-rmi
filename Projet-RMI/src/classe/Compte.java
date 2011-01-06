@@ -3,7 +3,7 @@ package classe;
 import java.io.Serializable;
 
 /**
- * Cette classe permet de dfinir un compte
+ * Cette classe permet de dï¿½finir un compte
  *
  */
 public class Compte implements Serializable

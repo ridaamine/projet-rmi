@@ -8,7 +8,7 @@ import main.Adresse;
  * Cette classe permet de définir un Client.
  *
  */
-public class Client implements Serializable //TODO A compléter...
+public class Client implements Serializable
 {
 //======================================================================//
 //============================ Variables ===============================//

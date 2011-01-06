@@ -14,6 +14,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import main.ThreadVirement;
+
 import service.IBanque;
 import service.IClient;
 import service.ICompte;
@@ -24,7 +26,7 @@ import classe.Client;
 import classe.Compte;
 
 /**
- * Cette classe permet de representŽ l'interface graphique d'un client
+ * Cette classe permet de representï¿½ l'interface graphique d'un client
  *
  */
 public class PanelClient extends JPanel
@@ -196,6 +198,38 @@ public class PanelClient extends JPanel
 			pt7.add(pt5,BorderLayout.CENTER);
 			pt8.add(pt2,BorderLayout.NORTH);
 			pt8.add(pt7,BorderLayout.CENTER);
+			
+			
+			JPanel pt9 = new JPanel();
+			JButton genereVirementB = new JButton("Generer des virements alï¿½atoires");
+			final JTextField nbGenereVirementText = new JTextField();
+			nbGenereVirementText.setColumns(7);
+			
+			genereVirementB.addActionListener(new ActionListener() 
+			{
+				@Override
+				public void actionPerformed(ActionEvent e) 
+				{ 
+					if(nbGenereVirementText.getText() != null &&  !nbGenereVirementText.getText().equals(""))
+					for (int i=0; i < Integer.valueOf(nbGenereVirementText.getText()); i++)
+					{
+						try 
+						{
+							serveurCompte.genereVirementAleatoire(client);
+							gestionCompte(client);
+						} 
+						catch (RemoteException e1) {e1.printStackTrace();}
+					}
+				}
+			});
+			
+			pt9.add(genereVirementB);
+			pt9.add(nbGenereVirementText);
+			pan.add(pt9,BorderLayout.SOUTH);
+			
+			
+			
+			
 			validerB.addActionListener(new ActionListener() 
 			{
 				@Override
@@ -203,11 +237,11 @@ public class PanelClient extends JPanel
 				{
 					try 
 					{
-						serveurCompte.virement(((Compte)listeComptes1.getSelectedValue()).getNumero(), ((Compte)listeComptes2.getSelectedValue()).getNumero(), Integer.valueOf(montantText.getText()));
+						if(montantText.getText() != null && !montantText.getText().equals(""))
+						new ThreadVirement(client,(Compte)listeComptes1.getSelectedValue(), (Compte)listeComptes2.getSelectedValue(), Integer.valueOf(montantText.getText()));
 						gestionCompte(client);
 					} 
 					catch (NumberFormatException e1) {e1.printStackTrace();}
-					catch (RemoteException e1) {e1.printStackTrace();}
 				}
 			});
 			
