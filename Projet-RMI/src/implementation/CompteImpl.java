@@ -42,6 +42,7 @@ public class CompteImpl extends UnicastRemoteObject implements ICompte
 	{
 		Compte compte = rechercheCompte(numCompte);
 		compte.crediter(montant);
+		System.out.println("Compte numero : "+numCompte+ "credité de "+montant);
 	}
 
 
@@ -50,6 +51,7 @@ public class CompteImpl extends UnicastRemoteObject implements ICompte
 	{
 		Compte compte = rechercheCompte(numCompte);
 		compte.debiter(montant);
+		System.out.println("Compte numero : "+numCompte+ "debité de "+montant);
 	}
 
 
