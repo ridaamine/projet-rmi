@@ -28,7 +28,7 @@ public class ClientServeur
 			ClientImpl client = new ClientImpl();
 			
 			System.out.println("Liaison du serveur de client avec les registres...");
-			Naming.rebind("//127.0.0.1/Client", client);
+			Naming.rebind("Client", client);
 			System.out.println("Serveur de client lance...");	
 			
 //			Client toto = new Client("Toto", "masculin", new Adresse("35 rue des lilas","Perpignan","0468508384"), new Agence(new Adresse("35 rue tressere","perpignan","0468508384"),new Banque("Banque Courtois")));

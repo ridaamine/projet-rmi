@@ -31,7 +31,7 @@ import classe.Banque;
 import classe.Client;
 
 /**
- * Cette classe permet de representŽ l'interface graphique d'une banque
+ * Cette classe permet de representï¿½ l'interface graphique d'une banque
  *
  */
 public class PanelBanque extends JPanel
@@ -96,7 +96,7 @@ public class PanelBanque extends JPanel
 
 				try 
 				{
-					final IBanque serveurBanque = (IBanque) Naming.lookup("//127.0.0.1/Banque");
+					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
 					ArrayList<Banque> banques;
 					banques = serveurBanque.listeBanques();
 					
@@ -117,6 +117,7 @@ public class PanelBanque extends JPanel
 						Banque banque = (Banque) listeBanque.getSelectedValue();
 						try 
 						{
+							System.out.println(banque.getAdresseServeurAgence()); //TODO sysout
 							IAgence serveurAgence = (IAgence) Naming.lookup(banque.getAdresseServeurAgence());
 							serveurAgence.insererAgence(villeText.getText(), new Agence(new Adresse(rueText.getText(), villeText.getText(), telephoneText.getText()), (Banque)listeBanque.getSelectedValue()));
 						} 
@@ -165,7 +166,7 @@ public class PanelBanque extends JPanel
 
 				try 
 				{
-					final IBanque serveurBanque = (IBanque) Naming.lookup("//127.0.0.1/Banque");
+					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
 					ArrayList<Banque> banques;
 					banques = serveurBanque.listeBanques();
 					
@@ -237,7 +238,7 @@ public class PanelBanque extends JPanel
 
 				try 
 				{
-					final IBanque serveurBanque = (IBanque) Naming.lookup("//127.0.0.1/Banque");
+					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
 					ArrayList<Banque> banques;
 					banques = serveurBanque.listeBanques();
 					

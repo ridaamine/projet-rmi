@@ -36,7 +36,7 @@ public class Agence implements Serializable
 		this.numero = Agence.compteurNumero;
 		this.adresse = adresse;
 		this.banque = banque;
-		this.adresseServeurClient = "//127.0.0.1/Client";
+		this.adresseServeurClient = "//169.254.241.250/Client";
 		
 		Agence.compteurNumero++;
 	}

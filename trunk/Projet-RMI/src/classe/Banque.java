@@ -14,7 +14,6 @@ public class Banque implements Serializable
 		
 	private String nom; // nom de la banque
 	private String adresseServeurAgence; // adresse du serveur qui gère les agences (ex: "//127.0.0.1/Agence")
-	
 
 //======================================================================//
 //========================== Constructeurs =============================//
@@ -27,8 +26,10 @@ public class Banque implements Serializable
 	 */
 	public Banque(String nom)
 	{
+		System.out.println("constructeur 1"); //TODO sysout
 		this.nom = nom;
-		this.adresseServeurAgence = "//127.0.0.1/Agence";
+		this.adresseServeurAgence = "//169.254.241.250/Agence";
+		
 	}
 	
 	/**
@@ -39,6 +40,7 @@ public class Banque implements Serializable
 	 */
 	public Banque(String nom, String adresseServeur)
 	{
+		System.out.println("constructeur 2"); //TODO sysout
 		this.nom = nom;
 		this.adresseServeurAgence = adresseServeur;
 	}
@@ -72,5 +74,6 @@ public class Banque implements Serializable
 	public void setAdresseServeurAgence(String adresseServeurAgence) 
 	{
 		this.adresseServeurAgence = adresseServeurAgence;
-	}	
+	}
+	
 }
