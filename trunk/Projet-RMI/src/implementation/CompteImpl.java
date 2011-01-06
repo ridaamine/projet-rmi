@@ -4,6 +4,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import main.ThreadVirement;
+
 import classe.Client;
 import classe.Compte;
 import classe.Livret;
@@ -36,22 +38,24 @@ public class CompteImpl extends UnicastRemoteObject implements ICompte
 //======================================================================//
 	
 	@Override
-	public void credit(int montant, Compte compte) throws RemoteException 
+	public void credit(int montant, int numCompte) throws RemoteException 
 	{
+		Compte compte = rechercheCompte(numCompte);
 		compte.crediter(montant);
 	}
 
 
 	@Override
-	public void debit(int montant, Compte compte) throws RemoteException 
+	public void debit(int montant, int numCompte) throws RemoteException 
 	{
+		Compte compte = rechercheCompte(numCompte);
 		compte.debiter(montant);
 	}
 
 
 	@Override
-	public void creerCompte(int solde, Client proprietaire)
-			throws RemoteException {
+	public void creerCompte(int solde, Client proprietaire) throws RemoteException 
+	{
 		Compte compte = new Compte(solde,proprietaire);
 		this.comptes.add(compte);
 		System.out.println("Creation du compte : "+compte);
@@ -65,7 +69,6 @@ public class CompteImpl extends UnicastRemoteObject implements ICompte
 	{
 		Livret livret = new Livret(solde,taux,proprietaire);
 		this.comptes.add(livret);
-		System.out.println(this.comptes.get(this.comptes.size()-1).getProprietaire());
 		System.out.println("Creation du Livret : "+livret);		
 	}
 
@@ -137,17 +140,36 @@ public class CompteImpl extends UnicastRemoteObject implements ICompte
 				trouve2 = true;
 			}
 			i++;
-			System.out.println(trouve1+"  "+trouve2+"\n");
 		}
 		if(trouve1 && trouve2 && numCompte1 != numCompte2 && compte1.getMontant() >= montant)
 		{
 			compte1.debiter(montant);
 			compte2.crediter(montant);
-			System.out.println("Transaction reussie");
+			System.out.println("Transaction reussie du compte : "+numCompte1+" au compte : "+numCompte2+" de "+montant);
 		}
 		else
-			System.err.println("Erreur dans la transaction");
+			System.err.println("Erreur dans la transaction du compte : "+numCompte1+" au compte : "+numCompte2+" de "+montant);
 		
+	}
+	
+	@Override
+	public void genereVirementAleatoire(Client client) throws RemoteException 
+	{
+		ArrayList<Compte> comptes = rechercheToutCompte(client);
+		int numC1, numC2, montant;
+		if (comptes.size() >= 2)
+		{
+			numC1 = (int)(Math.random() * (comptes.size()));
+			do
+			{
+				numC2 = (int)(Math.random() * (comptes.size()));
+			}
+			while (numC1 == numC2);
+			
+			montant = (int)(Math.random() * (rechercheCompte(numC1).getMontant()));
+			
+			ThreadVirement virementT = new ThreadVirement(client,comptes.get(numC1), comptes.get(numC2),montant);
+		}
 	}
 
 
@@ -157,7 +179,6 @@ public class CompteImpl extends UnicastRemoteObject implements ICompte
 		ArrayList<Compte> listeComptes = new ArrayList<Compte>();
 		for(int i=0; i< this.comptes.size();i++)
 		{
-			System.out.println(i+"    :\n"+this.comptes.get(i));
 			if(this.comptes.get(i).getProprietaire().equals(client) && this.comptes.get(i).getClass().toString().contains("Compte"))
 			{
 				listeComptes.add(this.comptes.get(i));
@@ -173,7 +194,6 @@ public class CompteImpl extends UnicastRemoteObject implements ICompte
 		ArrayList<Compte> listeComptes = new ArrayList<Compte>();
 		for(int i=0; i< this.comptes.size();i++)
 		{
-			System.out.println(this.comptes.get(i).getClass().toString());
 			if(this.comptes.get(i).getProprietaire().equals(client) && this.comptes.get(i).getClass().toString().contains("Livret"))
 			{
 				listeComptes.add(this.comptes.get(i));
@@ -188,7 +208,6 @@ public class CompteImpl extends UnicastRemoteObject implements ICompte
 		ArrayList<Compte> listeComptes = new ArrayList<Compte>();
 		for(int i=0; i< this.comptes.size();i++)
 		{
-			System.out.println(i+"    :\n"+this.comptes.get(i));
 			if(this.comptes.get(i).getProprietaire().equals(client))
 			{
 				listeComptes.add(this.comptes.get(i));

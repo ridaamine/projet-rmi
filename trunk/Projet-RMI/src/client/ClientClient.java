@@ -14,5 +14,4 @@ public class ClientClient
 	{
 		Fenetre fen1 = new Fenetre(new PanelClient(),"Client");
 	}
-
 }

@@ -19,7 +19,7 @@ public interface ICompte extends Remote
 	 * @param montant la somme d'argent à crédit du compte
 	 * @throws RemoteException
 	 */
-	public void credit(int montant, Compte compte) throws RemoteException;
+	public void credit(int montant, int numCompte) throws RemoteException;
 	
 	/**
 	 * Cette méthode permet de débit le compte courant du montant fourni en paramètre.
@@ -27,7 +27,7 @@ public interface ICompte extends Remote
 	 * @param montant la somme d'argent à cébit du compte
 	 * @throws RemoteException
 	 */
-	public void debit(int montant, Compte compte) throws RemoteException;
+	public void debit(int montant, int numCompte) throws RemoteException;
 	
 	
 	/**
@@ -106,6 +106,13 @@ public interface ICompte extends Remote
 	 * @throws RemoteException
 	 */
 	public ArrayList<Compte> rechercheToutCompte(Client client) throws RemoteException;
+
+	/**
+	 * Cette m�thode permet de generer des virements al�atoire entre 2 comptes d'un client tir� al�atoirement avec un montant al�atoire
+	 * @param client Le client grace auquel on va generer des virements al�atoires.
+	 * @throws RemoteException
+	 */
+	void genereVirementAleatoire(Client client) throws RemoteException;
 
 
 
