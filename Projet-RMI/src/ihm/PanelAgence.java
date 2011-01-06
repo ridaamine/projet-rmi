@@ -29,7 +29,7 @@ import classe.Banque;
 import classe.Client;
 
 /**
- * Cette classe permet de representŽ l'interface graphique d'une agence
+ * Cette classe permet de representï¿½ l'interface graphique d'une agence
  *
  */
 public class PanelAgence extends JPanel
@@ -102,7 +102,7 @@ public class PanelAgence extends JPanel
 
 				try 
 				{
-					final IBanque serveurBanque = (IBanque) Naming.lookup("//127.0.0.1/Banque");
+					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
 					ArrayList<Banque> banques;
 					banques = serveurBanque.listeBanques();
 
@@ -200,7 +200,7 @@ public class PanelAgence extends JPanel
 
 				try 
 				{
-					final IBanque serveurBanque = (IBanque) Naming.lookup("//127.0.0.1/Banque");
+					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
 					ArrayList<Banque> banques;
 					banques = serveurBanque.listeBanques();
 
@@ -298,7 +298,7 @@ public class PanelAgence extends JPanel
 
 				try 
 				{
-					final IBanque serveurBanque = (IBanque) Naming.lookup("//127.0.0.1/Banque");
+					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
 					ArrayList<Banque> banques;
 					banques = serveurBanque.listeBanques();
 

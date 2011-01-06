@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import service.IBanque;
 
 /**
- * Cette classe permet de representŽ l'interface graphique d'un administrateur de banque
+ * Cette classe permet de representï¿½ l'interface graphique d'un administrateur de banque
  *
  */
 public class PanelAdministrateurBanque extends JPanel
@@ -71,7 +71,7 @@ public class PanelAdministrateurBanque extends JPanel
 					{
 						try 
 						{
-							IBanque serveurBanque = (IBanque) Naming.lookup("//127.0.0.1/Banque");
+							IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
 							serveurBanque.creerBanque(nomText.getText());
 						} 
 						catch (MalformedURLException e) {e.printStackTrace();} 
@@ -108,7 +108,7 @@ public class PanelAdministrateurBanque extends JPanel
 					{
 						try 
 						{
-							IBanque serveurBanque = (IBanque) Naming.lookup("//127.0.0.1/Banque");
+							IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
 							serveurBanque.rechercherBanque(nomText.getText());
 						} 
 						catch (MalformedURLException e) {e.printStackTrace();} 
@@ -145,7 +145,7 @@ public class PanelAdministrateurBanque extends JPanel
 					{
 						try 
 						{
-							IBanque serveurBanque = (IBanque) Naming.lookup("//127.0.0.1/Banque");
+							IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
 							serveurBanque.supprimerBanque(nomText.getText());
 						} 
 						catch (MalformedURLException e) {e.printStackTrace();} 

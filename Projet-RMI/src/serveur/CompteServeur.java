@@ -28,7 +28,7 @@ public class CompteServeur
 			CompteImpl compte = new CompteImpl();
 			
 			System.out.println("Liaison du serveur de compte avec les registres...");
-			Naming.rebind("//127.0.0.1/Compte", compte);
+			Naming.rebind("Compte", compte);
 			System.out.println("Serveur de compte lance...");
 			
 		} 
