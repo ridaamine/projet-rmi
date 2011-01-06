@@ -60,8 +60,7 @@ public class AgenceImpl extends UnicastRemoteObject implements IAgence
 		
 		try 
 		{
-			IClient serveurClient;
-			serveurClient = (IClient) Naming.lookup(agence.getAdresseServeurClient());
+			IClient serveurClient = (IClient) Naming.lookup(agence.getAdresseServeurClient());
 			serveurClient.creerClient(client);
 		} 
 		catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur de compte lors de l'ajout d'une agence."); }

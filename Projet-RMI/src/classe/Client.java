@@ -21,7 +21,6 @@ public class Client implements Serializable
 	private Adresse adresse; // adresse du client
 	private Agence agence; // l'agence gérant les comptes du client
 	private String adresseServeurCompte;
-	private String adresseServeurLivret;
 
 	
 	
@@ -44,9 +43,8 @@ public class Client implements Serializable
 		this.sexe = sexe;
 		this.adresse = adresse;
 		this.agence = agence;
-		
+
 		this.adresseServeurCompte = "//169.254.241.250/Compte";
-		this.adresseServeurLivret = "//169.254.241.250/Livret";
 
 		
 		Client.compteurNumero++;
@@ -126,11 +124,5 @@ public class Client implements Serializable
 	public String getAdresseServeurCompte() 
 	{
 		return this.adresseServeurCompte;
-	}
-
-
-	public String getAdresseServeurLivret() 
-	{
-		return this.adresseServeurLivret;
 	}
 }
