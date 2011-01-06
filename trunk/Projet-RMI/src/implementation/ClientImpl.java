@@ -56,8 +56,7 @@ public class ClientImpl extends UnicastRemoteObject implements IClient
 			
 			try 
 			{
-				ICompte serveurCompte;
-				serveurCompte = (ICompte) Naming.lookup("Compte");
+				ICompte serveurCompte = (ICompte) Naming.lookup("Compte");
 				serveurCompte.creerCompte(soldeInitiale,proprietaire);
 			} 
 			catch (MalformedURLException e) { System.err.println("Erreur d'URL du serveur de compte lors de l'ajout d'un compte."); }
