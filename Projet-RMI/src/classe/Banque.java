@@ -28,7 +28,7 @@ public class Banque implements Serializable
 	{
 		System.out.println("constructeur 1"); //TODO sysout
 		this.nom = nom;
-		this.adresseServeurAgence = "//169.254.241.250/Agence";
+		this.adresseServeurAgence = "//169.254.134.165/Agence";
 		
 	}
 	
