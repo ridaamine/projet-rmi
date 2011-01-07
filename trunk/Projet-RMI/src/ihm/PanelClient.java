@@ -54,7 +54,7 @@ public class PanelClient extends JPanel
 		
 		try 
 		{
-			final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");			
+			final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.134.165/Banque");			
 			ArrayList<Banque> banques = serveurBanque.listeBanques();
 			
 			listeBanque = new JList(banques.toArray());

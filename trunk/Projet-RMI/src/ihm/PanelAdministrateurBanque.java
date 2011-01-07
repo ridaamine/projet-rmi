@@ -36,7 +36,7 @@ public class PanelAdministrateurBanque extends JPanel
 		init();
 	}
 
-	private void init()
+	public void init()
 	{
 	
 		creationBanqueB.addActionListener(creerBanqueListener());
@@ -54,7 +54,7 @@ public class PanelAdministrateurBanque extends JPanel
 
 	}
 
-	private ActionListener creerBanqueListener() 
+	public ActionListener creerBanqueListener() 
 	{
 		ActionListener a = new ActionListener()
 		{
@@ -71,7 +71,7 @@ public class PanelAdministrateurBanque extends JPanel
 					{
 						try 
 						{
-							IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
+							IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.134.165/Banque");
 							serveurBanque.creerBanque(nomText.getText());
 						} 
 						catch (MalformedURLException e) {e.printStackTrace();} 
@@ -91,7 +91,7 @@ public class PanelAdministrateurBanque extends JPanel
 	}
 	
 
-	private ActionListener rechercherBanqueListener() 
+	public ActionListener rechercherBanqueListener() 
 	{
 		ActionListener a = new ActionListener()
 		{
@@ -108,7 +108,7 @@ public class PanelAdministrateurBanque extends JPanel
 					{
 						try 
 						{
-							IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
+							IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.134.165/Banque");
 							serveurBanque.rechercherBanque(nomText.getText());
 						} 
 						catch (MalformedURLException e) {e.printStackTrace();} 
@@ -128,7 +128,7 @@ public class PanelAdministrateurBanque extends JPanel
 	}
 	
 
-	private ActionListener supprimerBanqueListener() 
+	public ActionListener supprimerBanqueListener() 
 	{
 		ActionListener a = new ActionListener()
 		{
@@ -145,7 +145,7 @@ public class PanelAdministrateurBanque extends JPanel
 					{
 						try 
 						{
-							IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
+							IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.134.165/Banque");
 							serveurBanque.supprimerBanque(nomText.getText());
 						} 
 						catch (MalformedURLException e) {e.printStackTrace();} 
