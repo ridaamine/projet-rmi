@@ -102,7 +102,7 @@ public class PanelAgence extends JPanel
 
 				try 
 				{
-					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
+					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.134.165/Banque");
 					ArrayList<Banque> banques;
 					banques = serveurBanque.listeBanques();
 
@@ -200,7 +200,7 @@ public class PanelAgence extends JPanel
 
 				try 
 				{
-					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
+					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.134.165/Banque");
 					ArrayList<Banque> banques;
 					banques = serveurBanque.listeBanques();
 
@@ -298,7 +298,7 @@ public class PanelAgence extends JPanel
 
 				try 
 				{
-					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.241.250/Banque");
+					final IBanque serveurBanque = (IBanque) Naming.lookup("//169.254.134.165/Banque");
 					ArrayList<Banque> banques;
 					banques = serveurBanque.listeBanques();
 

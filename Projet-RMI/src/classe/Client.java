@@ -44,7 +44,7 @@ public class Client implements Serializable
 		this.adresse = adresse;
 		this.agence = agence;
 
-		this.adresseServeurCompte = "//169.254.241.250/Compte";
+		this.adresseServeurCompte = "//169.254.134.165/Compte";
 
 		
 		Client.compteurNumero++;
